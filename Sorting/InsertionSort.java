@@ -1,38 +1,28 @@
-// Insertion sort in Java
+class insertionSort {
 
-import java.util.Arrays;
+    public static void sortInsertion(int [] sort_arr){
 
-class InsertionSort {
+      for(int i=0;i<sort_arr.length;++i){
 
-  void insertionSort(int array[]) {
-    int size = array.length;
+        int j = i;
+        
+        while(j > 0 && sort_arr[j-1]>sort_arr[j]){
 
-    for (int step = 1; step < size; step++) {
-      int key = array[step];
-      int j = step - 1;
+          int key = sort_arr[j];
+          sort_arr[j] = sort_arr[j-1];
+          sort_arr[j-1] = key;
+          j = j-1; 
 
-      // Compare key with each element on the left of it until an element smaller than
-      // it is found.
-      // For descending order, change key<array[j] to key>array[j].
-      while (j >= 0 && key < array[j]) {
-        array[j + 1] = array[j];
-        --j;
+        }
       }
-
-      // Place key at after the element just smaller than it.
-      array[j + 1] = key;
     }
-  }
 
-  // Driver code
-  public static void main(String args[]) {
-    int[] data = { 9, 5, 1, 4, 3 };
-    InsertionSort is = new InsertionSort();
-    is.insertionSort(data);
-    System.out.println("Sorted Array in Ascending Order: ");
-    System.out.println(Arrays.toString(data));
-  }
+    public static void main( String args[] ) {
+        int [] arr = {5,2,12,12,1};
+        sortInsertion(arr);
+
+        for(int i=0;i<arr.length;++i){
+          System.out.print(arr[i] + " ");
+        }
+    }
 }
-
-//Time Complexity - O(n*n)
-// Space Conplexity - O(1)
