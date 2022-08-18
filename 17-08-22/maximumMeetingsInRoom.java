@@ -16,54 +16,38 @@ Output : 6 7 1
 
 */
 
+//sort the times of meetings according to the end time and then compare the starting value of the current interval with the ending interval.
+
 class myComparator implements Comparator<Meeting>{
     public int compare(Meeting o1,Meeting o2){
-        if(o1.end<o2.end){
-            return -1;
-        }
-        else if(o1.end>o2.end){
-             return 1;
-        }
-        return 0;
+        return o1.end-o2.end;
     }
 } 
 class Meeting{
     int start;
     int end;
-    int pos;
-    Meeting(int start,int end,int pos){
+    Meeting(int start,int end){
         this.start=start;
         this.end=end;
-        this.pos=pos;
     }
 }
 
 class Solution {
-    public static void maxMeeting(ArrayList<Integer> meet,int n){
-        ArrayList<Integer> temp=new ArrayList<>();
-        int timeLimit=0;
-        Collections.sort(meet,new myComparator());
-        temp.add(meet.get(0).pos);
-        for(int i=1;i<meet.size();i++){
-            if(meet.get(start)>timeLimit){
-                temp.add(meet.get(i).pos);
-                timeLimit=meet.get(i).end;
+    public static int maxMeetings(int n,int[] S, int[] F) {
+        // code here
+        Meeting meet[]=new Meeting[n];
+        for(int i=0;i<n;i++){
+            meet[i]=new Meeting(S[i],F[i]);
+        }
+        Arrays.sort(meet,new myComparator());
+        int res=1;
+        int preVal=meet[0].end;
+        for(int i=1;i<n;i++){
+            if(meet[i].start>preVal){
+                res++;
+                preVal=meet[i].end;
             }
         }
-        for(int i=0;i<meet.size();i++){
-            meet.get(i)=meet.get(i)+1;
-        }
-        return meet;
-    }
-    public static ArrayList<Integer> maxMeetings(int N, int[] S, int[] F) {
-        // code here
-        ArrayList<Meeting> meet=new ArrayList<>();
-        for(int i=0;i<s.length;i++){
-            meet.add(new Meeting(S[i],F[i],i));
-        }
-        ArrayList<Integer> res=maxmeeting(meet,meet.size());
         return res;
-        
     }
 }
-        
