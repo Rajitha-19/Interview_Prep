@@ -116,3 +116,53 @@ public class Meeting {
         
     }
 }
+-------------------------------------------------------------------------------------------------------------------------------
+import java.util.*;
+class myComparator implements Comparator<Meeting>{
+    public int compare(Meeting o1,Meeting o2){
+        return o1.end-o2.end;
+    }
+}
+class Meeting{
+    int start;
+    int end;
+    Meeting(int start,int end){
+        this.start=start;
+        this.end=end;
+    }
+}
+public class Main
+{
+    public static int maxtime(int[] start,int[] end){
+        int n=start.length;
+        Meeting[] meet=new Meeting[n];
+        for(int i=0;i<n;i++){
+            meet[i]=new Meeting(start[i],end[i]);
+        }
+        Arrays.sort(meet,new myComparator());
+        int res=1;
+        int preVal=meet[0].end;
+        for(int i=1;i<n;i++){
+            if(meet[i].start>=preVal){
+                res++;
+                preVal=meet[i].end;
+            }
+        }
+        return res;
+    }
+	public static void main(String[] args) {
+	    Scanner sc=new Scanner(System.in);
+	    int n=sc.nextInt();
+	    int[] starTime=new int[n];
+	    for(int i=0;i<n;i++){
+	        starTime[i]=sc.nextInt();
+	    }
+	    int m=sc.nextInt();
+	    int[] endTime=new int[m];
+	    for(int i=0;i<m;i++){
+	        endTime[i]=sc.nextInt();
+	    }
+	    System.out.println(maxtime(starTime,endTime));
+	}
+}
+
